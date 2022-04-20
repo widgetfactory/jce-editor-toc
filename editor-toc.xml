@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<extension version="3.9" type="plugin" group="jce" method="upgrade">
+	<name>PLG_JCE_EDITOR_TOC</name>
+	<version>1.0.0</version>
+	<creationDate>April 2022</creationDate>
+	<author>Ryan Demmer</author>
+	<authorEmail>info@joomlacontenteditor.net</authorEmail>
+	<authorUrl>https://www.joomlacontenteditor.net/</authorUrl>
+	<copyright>Copyright (C) 2022 Ryan Demmer. All rights reserved</copyright>
+	<license>GNU/GPL Version 2 - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<description>PLG_JCE_EDITOR_TOC_XML_DESC</description>
+	<icon image="plugins/jce/editor-toc/img/toc.svg">toc</icon>
+	<files folder="plugins/jce/editor-toc">
+		<file plugin="editor-toc">editor_plugin.js</file>
+		<folder>img</folder>
+		<folder>language</folder>
+	</files>
+	<fields>
+		<fieldset></fieldset>
+	</fields>
+	<languages></languages>
+	<help></help>
+</extension>
