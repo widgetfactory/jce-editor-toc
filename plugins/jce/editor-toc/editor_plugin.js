@@ -96,7 +96,7 @@
 				return '<div class="' + o.className + '" contenteditable="false">' + html + '</div>';
 			}
 
-			function generateTocContentHtml(o) {
+			function generateTocContentHtml(o, title) {
 				var html = '';
 				var headers = prepareHeaders(o);
 				var prevLevel = getMinLevel(headers) - 1;
@@ -106,7 +106,7 @@
 					return '';
 				}
 
-				html += generateTitle(o.headerTag, editor.getLang("en.toc_title", "Table of Contents"));
+				html += title || generateTitle(o.headerTag, editor.getLang("en.toc_title", "Table of Contents"));
 
 				for (i = 0; i < headers.length; i++) {
 					h = headers[i];
@@ -144,6 +144,10 @@
 				return editor.dom.select('.' + opts.className, node);
 			}
 
+			function getTocTitle(node) {
+				return editor.dom.select('' + opts.headerTag + ':first-child', node);
+			}
+
 			editor.onNodeChange.add(function (ed, cm, n, co) {
                 cm.setActive('toc', isToc());
 
@@ -175,7 +179,12 @@
 
 				each($tocElm, function (elm) {
 					elm.setAttribute('contentEditable', false);
-					elm.firstChild.setAttribute('contentEditable', true);
+
+					var tocTitle = getTocTitle(elm);
+
+					if (tocTitle.length) {
+						editor.dom.setAttrib(tocTitle, 'contentEditable', true);
+					}
 				});
 			});
 
@@ -197,7 +206,13 @@
 				var $tocElm = getTocElm();
 
 				if ($tocElm.length) {
-					editor.dom.setHTML($tocElm, generateTocContentHtml(opts));
+					var tocTitle = getTocTitle($tocElm[0]), title = '';
+
+					if (tocTitle.length) {
+						title = editor.dom.getOuterHTML(tocTitle[0]);
+					}
+
+					editor.dom.setHTML($tocElm, generateTocContentHtml(opts, title));
 					editor.undoManager.add();
 				}
 			});
