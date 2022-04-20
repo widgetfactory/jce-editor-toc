@@ -23,16 +23,6 @@
 				className: 'mce-toc'
 			};
 
-			var guid = function (prefix) {
-				var counter = 0;
-				return function () {
-					var guid = new Date().getTime().toString(32);
-					return prefix + guid + (counter++).toString(32);
-				};
-			};
-
-			var tocId = guid('mcetoc_');
-
 			function isValidTag(tagName) {
 				return editor.schema.isValidChild('div', tagName);
 			}
@@ -65,13 +55,16 @@
 				}
 
 				return tinymce.map(headers, function (h) {
+					var text = h.textContent;
+					
 					if (!h.id) {
-						h.id = tocId();
+						h.id = text.replace(/\s+/g, '-').toLowerCase();
 					}
+
 					return {
 						id: h.id,
 						level: parseInt(h.nodeName.replace(/^H/i, ''), 10),
-						title: h.textContent
+						title: text
 					};
 				});
 			}
@@ -113,7 +106,7 @@
 					return '';
 				}
 
-				html += generateTitle(o.headerTag, editor.getLang("en.toc", "Table of Contents"));
+				html += generateTitle(o.headerTag, editor.getLang("en.toc_title", "Table of Contents"));
 
 				for (i = 0; i < headers.length; i++) {
 					h = headers[i];
