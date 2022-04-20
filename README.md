@@ -2,7 +2,7 @@
 Generates a Table of Contents in content from existing Headings
 
 ## Download
-Downloads are available in [Releases](https://github.com/widgetfactory/je-editor-toc/releases).
+Downloads are available in [Releases](https://github.com/widgetfactory/jce-editor-toc/releases).
 
 ## Installation
 Install using the Joomla Extensions Installer - https://docs.joomla.org/Installing_an_extension
